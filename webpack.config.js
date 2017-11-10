@@ -10,7 +10,8 @@ module.exports = {
         filename: 'bundle.js'
     },
     resolve: {
-        modules: ['src', 'node_modules']
+        modules: ['src', 'node_modules'],
+        extensions: ['.js', 'index.js']
     },
     module: {
         loaders: [
