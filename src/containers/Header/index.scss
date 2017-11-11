@@ -1,14 +1,14 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins/_grid.scss';
+
 $link-color: #6a6a6a;
 $link-hover-color: #4c4c4c;
 
-.header {
+header {
     height: 80px;
     color: $link-color;
-}
-
-.header-content {
-    height: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     
     a {
@@ -19,25 +19,18 @@ $link-hover-color: #4c4c4c;
 }
 
 .logo {
-    @extend .header-content;
     font-weight: bold;
     font-size: 25px;
 
-    a {
-        &:hover {
-            text-decoration: none;
-        }
+    &:hover {
+        text-decoration: none;
     }
 }
 
 .sign-up {
-    @extend .header-content;
-    justify-content: flex-end;
     font-size: 15px;
 
-    a {
-        &:hover {
-            text-decoration: underline;
-        }
+    &:hover {
+        text-decoration: underline;
     }
 }

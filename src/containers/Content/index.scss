@@ -1,4 +1,25 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins/_grid.scss';
+
 .content {
-    padding-bottom: 30px;
+    padding: 15px 0;
     min-height: calc(100vh - 80px - 65px - 2px);
+}
+
+.card-col {
+    @include make-sm-column(10);
+    @include make-md-column(5);
+    @include make-lg-column(4);
+}
+
+@media (max-width: $screen-xs-max) {
+    .card-col {
+        @include make-xs-column(10);
+    }
+}
+
+@media (max-width: 500px) {
+    .card-col {
+        @include make-xs-column(20);
+    }
 }

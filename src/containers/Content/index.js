@@ -40,11 +40,11 @@ class Content extends Component {
     render() {
         return (
             <div className='row content'>
-                {cards.map((card, i) =>
-                    <div className='col-lg-4' key={i}>
-                        <Card card={card }/>
+                {cards.map((card, i) => (
+                    <div className='card-col' key={i}>
+                        <Card card={card} />
                     </div>
-                )}
+                ))}
             </div>
         );
     }
