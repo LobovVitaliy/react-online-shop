@@ -5,10 +5,10 @@ class Header extends Component {
     render() {
         return (
             <div className='row header'>
-                <div className='col-lg-6 logo'>
+                <div className='col-lg-10 logo'>
                     <a href='#'>Shop</a>
                 </div>
-                <div className='col-lg-6 sign-up'>
+                <div className='col-lg-10 sign-up'>
                     <a href='#'>Sign Up</a>
                 </div>
             </div>

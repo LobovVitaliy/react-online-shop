@@ -1,0 +1,58 @@
+$title-font-family: 'Trebuchet MS';
+$card-color: #fff;
+$card-shadow-color: #c8d4fa;
+$title-color: #4c4c4c;
+$text-color: #989898;
+$price-color: #000;
+
+.card {
+    background: $card-color;
+    border-radius: 4px;
+    margin-top: 30px;
+    box-shadow: 0 0 5px $card-shadow-color;
+
+    &:hover {
+        box-shadow: 0 0 20px 2px $card-shadow-color;
+        cursor: pointer;
+    }
+}
+
+.card-image {
+    height: 170px;
+    position: relative;
+
+    img {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+.card-block {
+    padding: 0 10px 1px;
+    font-family: $title-font-family;
+    text-align: center;
+}
+
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    color: $title-color;
+}
+
+.card-text {
+    overflow-y: hidden;
+    height: 35px;
+    font-size: 12px;
+    color: $text-color;
+}
+
+.card-price {
+    text-align: right;
+    color: $price-color;
+}
