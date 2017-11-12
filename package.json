@@ -38,6 +38,7 @@
     "postcss": "^6.0.14",
     "postcss-loader": "^2.0.8",
     "precss": "^2.0.0",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "resolve-url-loader": "^2.2.0",
