@@ -1,0 +1,132 @@
+// $bootstrap-sass-asset-helper: true;
+// @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+
+$price-color: #b14f4f;
+$line-color: #afafaf;
+$button-bg-color: #75d46c;
+$button-bg-active-color: #4ebf42;
+
+@mixin make-column($lg, $md: $lg, $sm: $lg, $xs: $lg) {
+    @if ($xs != 0) { @extend .col-xs-#{$xs}; }
+    @if ($sm != 0) { @extend .col-sm-#{$sm}; }
+    @if ($md != 0) { @extend .col-md-#{$md}; }
+    @if ($lg != 0) { @extend .col-lg-#{$lg}; }
+}
+
+
+.product {
+    padding: 20px 0;
+
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+.product-img-btns {
+    @include make-column(6, 6, 8, 0);
+
+    img {
+        background: white;
+        max-width: 100%;
+        max-height: 100%;
+        padding: 10px;
+        border: 1px solid $line-color;
+        border-radius: 2px;
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    color: white;
+    font-weight: bold;
+
+    button {
+        background: $button-bg-color;
+        text-transform: capitalize;
+        min-width: 100px;
+        width: 48%;
+        height: 40px;
+        border-radius: 2px;
+        border: none;
+        outline: none;
+        box-shadow: 0 3px 0 0 darken($button-bg-color, 10);
+        padding: 0 15px;
+
+        &:hover {
+            text-shadow: 0 1px 3px darken($button-bg-color, 30);
+        }
+
+        &:active {
+            background: $button-bg-active-color;
+            box-shadow: none;
+            transform: translateY(2px);
+        }
+    }
+}
+
+.product-info {
+    @include make-column(14, 14, 12, 0);
+
+    h2 {
+        margin: 0;
+
+        &.price {
+            float: right;
+            color: $price-color;
+        }
+    }
+}
+
+.product-title {
+    @include make-column(16, 16, 14, 20);
+}
+
+.product-price {
+    @include make-column(4, 4, 6, 20);
+}
+
+.product-description {
+    @include make-column(20);
+
+    hr {
+        border-color: $line-color;
+    }
+}
+
+
+@media (max-width: $screen-xs-max) {
+    .product-img-btns,
+    .product-info {
+        @include make-xs-column(10);
+    }
+
+    .product-info {
+        h2 {
+            font-size: 25px;
+
+            &.price {
+                margin-top: 5px;
+                float: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .product-img-btns,
+    .product-info {
+        @include make-xs-column(20);
+    }
+
+    .product-info {
+        text-align: center;
+
+        h2 {
+            margin-top: 15px;
+        }
+    }
+}
