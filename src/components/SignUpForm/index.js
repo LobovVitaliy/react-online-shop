@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import './index.scss';
 
 import PropTypes from 'prop-types';
+
+import Form from '../Form';
+import Field from '../Field';
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -26,61 +28,100 @@ class SignUpForm extends Component {
         };
 
         this.handleSignUp = this.handleSignUp.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+
+        this.handleChangeMail = this.handleChangeMail.bind(this);
+        this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
     }
 
-    handleSignUp(event) {
-        event.preventDefault();
+    handleSignUp() {
         const { mail, password, confirmPassword } = this.state;
 
-        if (password.value !== confirmPassword.value) {
-            this.setState({ confirmPassword:
-                Object.assign({}, confirmPassword, { error: 'Your passwords do not match' })
-            });
-        } else if (!mail.error && !password.error && !confirmPassword.error) {
-            this.props.handleSignUp(mail.value, password.value);
+        if (!mail.error && !password.error && !confirmPassword.error) {
+            this.props.signup(mail.value, password.value);
         }
     }
 
-    handleChange(event) {
-        const { name, value } = event.target;
-        const regex = this.state[name].regex;
-        let error = '';
-
+    getError(value, regex) {
         if (!value) {
-            error = 'This field is required';
+            return 'This field is required';
         } else if (!value.match(regex)) {
-            error = 'This field is not valid';
+            return 'This field is not valid';
+        } else {
+            return '';
         }
-        this.setState({ [name]: { value, regex, error } });
     }
 
-    renderField(name, label, type) {
-        const error = this.state[name].error;
-        return (
-            <div className='field'>
-                <label>{label}</label>
-                <input name={name} type={type} onChange={this.handleChange} />
-                <div className={error ? 'error is-error' : 'error'}>{error}</div>
-            </div>
-        );
+    handleChangeMail(value) {
+        const regex = this.state.mail.regex;
+        const error = this.getError(value, regex);
+        this.setState({ mail: { value, regex, error } });
+    }
+
+    getNewConfirmPasswordState(password) {
+        const { value, regex } = this.state.confirmPassword;
+        const error = this.getError(value, regex);
+
+        if (!error) {
+            return {
+                confirmPassword: {
+                    value,
+                    regex,
+                    error: (value !== password) ? 'Your passwords do not match' : ''
+                }
+            }
+        }
+        return {};
+    }
+
+    handleChangePassword(value) {
+        const { password: { regex }, confirmPassword } = this.state;
+        const error = this.getError(value, regex);
+
+        const newState = this.getNewConfirmPasswordState(value);
+        newState.password = { value, regex, error };
+        this.setState(newState);
+    }
+
+    handleChangeConfirmPassword(value) {
+        const { confirmPassword: { regex }, password } = this.state;
+        let error = this.getError(value, regex);
+
+        if (!error && value !== password.value) {
+            error = 'Your passwords do not match';
+        }
+        this.setState({ confirmPassword: { value, regex, error } });
     }
 
     render() {
+        const { mail, password, confirmPassword } = this.state;
         return (
-            <form onSubmit={this.handleSignUp}>
-                <h2>Sign Up</h2>
-                {this.renderField('mail', 'Email', 'text')}
-                {this.renderField('password', 'Password', 'password')}
-                {this.renderField('confirmPassword', 'Confirm Password', 'password')}
-                <button type='submit'>Sign up</button>
-            </form>
+            <Form header='Register' button='Sign up' onSubmit={this.handleSignUp}>
+                <Field
+                    label='Email'
+                    type='text'
+                    error={mail.error}
+                    onChange={this.handleChangeMail}
+                />
+                <Field
+                    label='Password'
+                    type='password'
+                    error={password.error}
+                    onChange={this.handleChangePassword}
+                />
+                <Field
+                    label='Confirm Password'
+                    type='password'
+                    error={confirmPassword.error}
+                    onChange={this.handleChangeConfirmPassword}
+                />
+            </Form>
         );
     }
 }
 
 SignUpForm.propTypes = {
-    handleSignUp: PropTypes.func.isRequired
+    signup: PropTypes.func.isRequired
 };
 
 export default SignUpForm;
