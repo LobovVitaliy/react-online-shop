@@ -1,0 +1,41 @@
+$form-color: #fff;
+
+$form-shadow-color: #c8d4fa;
+$header-color: #4c4c4c;
+$button-bg-color: #94ba65;
+$button-color: #fff;
+
+form {
+    background: $form-color;
+    max-width: 350px;
+    padding: 20px;
+    margin: 0 auto;
+    border-radius: 2px;
+    box-shadow: 0 0 20px $form-shadow-color;
+
+    h2 {
+        margin: 0 0 35px;
+        text-align: center;
+        color: $header-color;
+        letter-spacing: 1px;
+    }
+
+    button {
+        $btn-bg-opacity-color: rgba($button-bg-color, .7);
+
+        width: 100%;
+        background: $btn-bg-opacity-color;
+        color: $button-color;
+        border: none;
+        outline: none;
+        box-shadow: 0 3px 0 0 darken($btn-bg-opacity-color, 10);
+        border-radius: 2px;
+        font-size: 25px;
+        padding: 5px;
+
+        &:hover {
+            background: $button-bg-color;
+            text-shadow: 0 1px 3px darken($btn-bg-opacity-color, 30);
+        }
+    }
+}
