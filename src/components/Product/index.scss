@@ -1,5 +1,6 @@
-// $bootstrap-sass-asset-helper: true;
-// @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_grid';
 
 $price-color: #b14f4f;
 $line-color: #afafaf;
