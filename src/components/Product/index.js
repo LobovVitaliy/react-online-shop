@@ -8,7 +8,7 @@ const Product = (props) => {
             <div className='product-img-btns'>
                 <img src={product.img} />
                 <div className='buttons'>
-                    <button>Add to bag</button>
+                    <button>Add to cart</button>
                     <button>Buy</button>
                 </div>
             </div>
