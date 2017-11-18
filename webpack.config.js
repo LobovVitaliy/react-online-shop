@@ -52,5 +52,6 @@ module.exports = {
     devServer: {
         stats: 'errors-only',
         contentBase: path.join(__dirname, '/public'),
+        historyApiFallback: true
     }
 };
