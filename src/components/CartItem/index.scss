@@ -1,0 +1,132 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_grid';
+
+@mixin make-column($lg, $md: $lg, $sm: $lg, $xs: $lg) {
+    @if ($xs != 0) { @extend .col-xs-#{$xs}; }
+    @if ($sm != 0) { @extend .col-sm-#{$sm}; }
+    @if ($md != 0) { @extend .col-md-#{$md}; }
+    @if ($lg != 0) { @extend .col-lg-#{$lg}; }
+}
+
+$item-height: 80px;
+$item-shadow-color: #9c9cd6;
+$item-del-btn-color: red;
+
+.item {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: $item-height;
+    box-shadow: 0 0 0 1px $item-shadow-color, 0 0 15px 1px $item-shadow-color;
+    border-radius: 4px;
+
+    h3 {
+        margin: 0;
+    }
+}
+
+.item-image {
+    @include make-column(4, 4, 4, 0);
+
+    height: $item-height;
+    background: white;
+    border-radius: 4px 0 0 4px;
+
+    img {
+        display: block;
+        margin: 0 auto;
+        padding: 3px 0;
+        height: 100%;
+    }
+}
+
+.item-title,
+.item-price,
+.item-del-btn {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.item-title {
+    @include make-column(11, 11, 10, 0);
+
+    h3 {
+        margin-left: 20px;
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.item-price {
+    @include make-column(3, 3, 4, 0);
+}
+
+.item-del-btn {
+    @include make-column(2, 2, 2, 0);
+
+    justify-content: center;
+
+    a {
+        color: $item-del-btn-color;
+        border: 1px solid $item-del-btn-color;
+        border-radius: 2px;
+        padding: 4px 10px;
+        cursor: pointer;
+
+        &:hover {
+            box-shadow: 0 0 5px $item-del-btn-color;
+            text-decoration: none;
+        }
+    }
+}
+
+
+@media (max-width: $screen-xs-max) {
+    .item-image {
+        @include make-xs-column(6);
+    }
+    .item-title,
+    .item-price {
+        @include make-xs-column(12);
+        height: 50%;
+
+        h3 {
+            margin-left: 20px;
+        }
+    }
+    .item-del-btn {
+        @include make-xs-column(2);
+        position: absolute;
+        right: 6px;
+    }
+}
+
+@media (max-width: 500px) {
+    .item {
+        height: $item-height * 2;
+    }
+    .item-image {
+        @include make-xs-column(20);
+        border-radius: 4px 4px 0 0;
+    }
+    .item-title,
+    .item-price {
+        @include make-xs-column(20);
+        height: 25%;
+
+        h3 {
+            margin: 0 auto;
+        }
+    }
+    .item-del-btn {
+        @include make-xs-column(3);
+        height: 50%;
+        position: absolute;
+        top: 0;
+        right: 6px;
+    }
+}
