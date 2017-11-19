@@ -27,10 +27,16 @@ header {
     }
 }
 
-.sign-up {
+.menu {
     font-size: 15px;
 
-    &:hover {
-        text-decoration: underline;
+    a {
+        &:last-child {
+            margin-left: 30px;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
