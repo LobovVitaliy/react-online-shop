@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 
-import Form from '../Form';
-import Field from '../Field';
+import Form from '../../components/Form';
+import Field from '../../components/Field';
 
 class SignUpForm extends Component {
     constructor(props) {
