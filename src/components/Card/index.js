@@ -1,10 +1,12 @@
 import React from 'react';
 import './index.scss';
 
+import { Link } from 'react-router-dom';
+
 const Card = (props) => {
     const card = props.card;
     return (
-        <div className='card'>
+        <Link className='card' to={`/products/${card.id}`}>
             <div className='card-image'>
                 <img src={card.img} alt={card.title} />
             </div>
@@ -13,7 +15,7 @@ const Card = (props) => {
                 <p className='card-text'>{card.text}</p>
                 <h4 className='card-price'>{card.price}</h4>
             </div>
-        </div>
+        </Link>
     );
 }
 

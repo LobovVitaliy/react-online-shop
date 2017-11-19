@@ -6,6 +6,7 @@ $text-color: #989898;
 $price-color: #000;
 
 .card {
+    display: block;
     background: $card-color;
     border-radius: 4px;
     margin: 15px 0;
@@ -13,7 +14,7 @@ $price-color: #000;
 
     &:hover {
         box-shadow: 0 0 20px 2px $card-shadow-color;
-        cursor: pointer;
+        text-decoration: none;
     }
 }
 
