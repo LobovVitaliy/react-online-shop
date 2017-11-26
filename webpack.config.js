@@ -6,12 +6,12 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.join(__dirname, '/public/build'),
-        publicPath: '/build/',
+        publicPath: '/public/',
         filename: 'bundle.js'
     },
     resolve: {
         modules: ['src', 'node_modules'],
-        extensions: ['.js', 'index.js']
+        extensions: ['.js', '.jsx']
     },
     module: {
         loaders: [
@@ -28,13 +28,6 @@ module.exports = {
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader']
-                })
-            },
-            {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'postcss-loader']
                 })
             },
             {
