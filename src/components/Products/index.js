@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './index.scss';
 
-import { getProducts } from '../../redux/actions/products';
-import Card from '../../components/Card';
+import Card from '../Card';
 
 class Products extends Component {
     componentDidMount() {
-        this.props.loadProducts();
+        this.props.getProducts();
     }
 
     render() {
@@ -23,12 +22,9 @@ class Products extends Component {
     }
 }
 
-const mapStateToProps = state => ({ products: state.products.data });
+Products.propTypes = {
+    products: PropTypes.array.isRequired,
+    getProducts: PropTypes.func.isRequired
+};
 
-const mapDispatchToProps = dispatch => ({
-    loadProducts: () => {
-        dispatch(getProducts());
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default Products;
