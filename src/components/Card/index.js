@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 const Card = (props) => {
     const card = props.card;
     return (
-        <Link className='card' to={`/products/${card.id}`}>
+        <Link className='card' to={`/products/${card._id}`}>
             <div className='card-image'>
-                <img src={card.img} alt={card.title} />
+                <img src={`/static/images/${card._id}`} alt={card.title} />
             </div>
             <div className='card-block'>
                 <h4 className='card-title'>{card.title}</h4>
