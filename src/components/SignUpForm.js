@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
 import PropTypes from 'prop-types';
 
-import Form from '../../components/Form';
-import Field from '../../components/Field';
+import Form from './Form';
+import Field from './Field';
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -38,7 +37,10 @@ class SignUpForm extends Component {
         const { mail, password, confirmPassword } = this.state;
 
         if (!mail.error && !password.error && !confirmPassword.error) {
-            this.props.signup(mail.value, password.value);
+            this.props.signup({
+                mail: mail.value,
+                password: password.value
+            });
         }
     }
 
