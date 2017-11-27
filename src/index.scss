@@ -13,6 +13,11 @@ body {
     border-color: $line-color;
 }
 
+.content {
+    padding: 15px 0;
+    min-height: calc(100vh - 80px - 65px - 2px);
+}
+
 a {
     color: inherit;
 }
