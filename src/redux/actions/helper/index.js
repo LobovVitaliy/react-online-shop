@@ -1,0 +1,1 @@
+export const geterror = (err) => err.response ? err.response.data.error : 'Unknown error!';
