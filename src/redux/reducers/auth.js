@@ -1,6 +1,8 @@
 import { LOGIN, LOGOUT } from '../actions/auth';
 
-export default function(state = false, action) {
+const initialState = !!localStorage.getItem('jwt');
+
+export default function(state = initialState, action) {
     switch (action.type) {
 
         case LOGIN:
