@@ -5,6 +5,7 @@ import Products from './Products';
 import Product from './Product';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
+import Cart from './Cart';
 import NotFound from '../components/NotFound';
 
 class Content extends Component {
@@ -12,12 +13,11 @@ class Content extends Component {
         return (
             <div className='row content'>
                 <Switch>
-                    <Redirect exact from='/' to='/products' />
                     <Route exact path='/products' component={Products} />
                     <Route path='/products/:id' component={Product} />
                     <Route exact path='/login' component={LoginForm} />
                     <Route exact path='/signup' component={SignUpForm} />
-                    {/* <Route exact path='/cart' component={Cart} /> */}
+                    <Route exact path='/cart' component={Cart} />
                     <Route component={NotFound} />
                 </Switch>
             </div>

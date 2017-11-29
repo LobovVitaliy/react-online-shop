@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './index.scss';
 
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class CartItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleRemove = this.handleRemove.bind(this);
+    }
+
+    handleRemove() {
+        this.props.remove(this.props.item._id);
+    }
+
     render() {
         const item = this.props.item;
         return (
             <div className='item'>
                 <div className='item-image'>
-                    <img src={item.img} />
+                    <img src={`/static/images/${item._id}`} />
                 </div>
                 <div className='item-title'>
-                    <h3><a>{item.title}</a></h3>
+                    <h3>
+                        <Link to={`/products/${item._id}`}>{item.title}</Link>
+                    </h3>
                 </div>
                 <div className='item-price'>
                     <h3>{item.price}</h3>
                 </div>
                 <div className='item-del-btn'>
-                    <a>&#215;</a>
+                    <a onClick={this.handleRemove}>&#215;</a>
                 </div>
             </div>
         );
@@ -26,6 +39,8 @@ class CartItem extends Component {
 }
 
 CartItem.propTypes = {
+    item: PropTypes.object.isRequired,
+    remove: PropTypes.func.isRequired
 };
 
 export default CartItem;
