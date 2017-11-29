@@ -19,7 +19,7 @@ module.exports = {
             .catch(err => next(err));
     },
     login: (req, res, next) => {
-        User.findOne({ mail: req.body.mail })
+        User.findOne({ mail: req.body.mail }, 'mail password')
             .then(user => {
                 if (hash.sha256(req.body.password) === user.password) {
                     return user.toObject();
