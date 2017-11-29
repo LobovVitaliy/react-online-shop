@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import Header from '../components/Header';
+import Header from './Header';
 import Content from './Content';
 import Footer from '../components/Footer';
 import NotificationBar from './NotificationBar';
