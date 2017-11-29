@@ -5,6 +5,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Snackbar from 'material-ui/Snackbar';
 
 class NotificationBar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleRequestClose = this.handleRequestClose.bind(this);
+    }
+
     handleRequestClose() {
         this.props.reset();
     }
@@ -17,7 +23,7 @@ class NotificationBar extends Component {
                     open={!!message}
                     message={message}
                     autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose.bind(this)}
+                    onRequestClose={this.handleRequestClose}
                 />
             </MuiThemeProvider>
         );
