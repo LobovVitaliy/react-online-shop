@@ -1,6 +1,10 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins/_grid.scss';
 
+.pagination-block {
+    text-align: center;
+}
+
 .card-col {
     @include make-sm-column(10);
     @include make-md-column(5);
