@@ -8,6 +8,7 @@ const AppError = require('../libs/errors');
 const UserSchema = new Schema({
     mail: { type: String, unique: true, required: true },
     password: { type: String, minlength: 4, required: true },
+    cart: { type: Array, default: [] },
     role: { type: String, default: 'user' }
 }, { versionKey: false });
 
