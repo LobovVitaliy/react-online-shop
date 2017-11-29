@@ -5,8 +5,23 @@ import './index.scss';
 import NotFound from '../NotFound';
 
 class Product extends Component {
+    constructor(props) {
+        super(props);
+
+        this.add = this.add.bind(this);
+        this.buy = this.buy.bind(this);
+    }
+
     componentDidMount() {
         this.props.getProductById(this.props.match.params.id);
+    }
+
+    add() {
+        this.props.add(this.props.product._id);
+    }
+
+    buy() {
+        alert('Success! =)');
     }
 
     render() {
@@ -18,8 +33,8 @@ class Product extends Component {
                 <div className='product-img-btns'>
                     <img src={`/static/images/${product._id}`} />
                     <div className='buttons'>
-                        <button>Add to cart</button>
-                        <button>Buy</button>
+                        <button onClick={this.add}>Add to cart</button>
+                        <button onClick={this.buy}>Buy</button>
                     </div>
                 </div>
                 <div className='product-info'>
@@ -41,7 +56,8 @@ class Product extends Component {
 
 Product.propTypes = {
     product: PropTypes.object.isRequired,
-    getProductById: PropTypes.func.isRequired
+    getProductById: PropTypes.func.isRequired,
+    add: PropTypes.func.isRequired
 };
 
 export default Product;
