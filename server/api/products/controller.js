@@ -7,8 +7,15 @@ const Files = require('../../libs/files');
 
 module.exports = {
     getAll: (req, res, next) => {
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+
         Product.find()
-            .then(products => res.json(products))
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .then(products => {
+                Product.count().then(count => res.json({ count, products }));
+            })
             .catch(err => next(err));
     },
     getById: (req, res, next) => {
