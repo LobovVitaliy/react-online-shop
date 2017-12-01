@@ -1,6 +1,7 @@
+import cookie from 'react-cookies';
 import { LOGIN, LOGOUT } from '../actions/auth';
 
-const initialState = !!localStorage.getItem('jwt');
+const initialState = !!cookie.load('jwt');
 
 export default function(state = initialState, action) {
     switch (action.type) {
