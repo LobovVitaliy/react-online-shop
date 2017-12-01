@@ -9,7 +9,7 @@ const cookieExtractor = req => {
     return (req && req.cookies) ? req.cookies['jwt'] : null;
 };
 
-const createJwtStrategy = role => {
+const createJwtStrategy = roles => {
     const options = {
         jwtFromRequest: cookieExtractor,
         secretOrKey: secret
@@ -17,12 +17,12 @@ const createJwtStrategy = role => {
 
     return new JwtStrategy(options, (payload, done) => {
         User.findOne({ mail: payload.mail })
-            .then(user => done(null, (user.role === role) ? user : false))
+            .then(user => done(null, roles.includes(user.role) ? user : false))
             .catch(err => done(err, false));
     });
 };
 
 module.exports = passport => {
-    passport.use('user-jwt', createJwtStrategy('user'));
-    passport.use('admin-jwt', createJwtStrategy('admin'));
+    passport.use('user-jwt', createJwtStrategy(['user', 'admin']));
+    passport.use('admin-jwt', createJwtStrategy(['admin']));
 };
