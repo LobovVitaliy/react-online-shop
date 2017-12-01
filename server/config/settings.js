@@ -34,8 +34,6 @@ module.exports = {
     },
 
     cookie: {
-        secure: true,
-        httpOnly: true,
         maxAge: expires * 1000
     }
 };
