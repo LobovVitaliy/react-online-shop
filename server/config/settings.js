@@ -3,6 +3,8 @@
 const path = require('path');
 const root = path.normalize(`${__dirname}/../..`);
 
+const expires = 86400; // 24h in seconds
+
 module.exports = {
     port: process.env.PORT || 9000,
 
@@ -27,7 +29,13 @@ module.exports = {
         session: false,
         options: {
             algorithm: 'HS256',
-            expiresIn: '12h'
+            expiresIn: expires
         }
+    },
+
+    cookie: {
+        secure: true,
+        httpOnly: true,
+        maxAge: expires * 1000
     }
 };

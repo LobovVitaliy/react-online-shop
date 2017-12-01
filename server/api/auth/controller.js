@@ -3,7 +3,7 @@
 const User = require('../../models/user');
 const hash = require('./hash');
 const jwt = require('jsonwebtoken');
-const { secret, options } = require('../../config/settings').jwt;
+const settings = require('../../config/settings');
 const AppError = require('../../libs/errors');
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
             .catch(err => next(err));
     },
     login: (req, res, next) => {
-        User.findOne({ mail: req.body.mail }, 'mail password')
+        User.findOne({ mail: req.body.mail }, 'mail password role')
             .then(user => {
                 if (hash.sha256(req.body.password) === user.password) {
                     return user.toObject();
@@ -29,7 +29,8 @@ module.exports = {
             })
             .then(payload => {
                 delete payload.password;
-                const token = 'bearer ' + jwt.sign(payload, secret, options);
+                const token = jwt.sign(payload, settings.jwt.secret, settings.jwt.options);
+                res.cookie('jwt', token, settings.cookie);
                 res.json({ token });
             })
             .catch(err => next(err));
