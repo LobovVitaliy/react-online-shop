@@ -2,34 +2,50 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
 
-import Card from '../Card';
 import Pagination from 'react-js-pagination';
+
+import Card from '../Card';
+import NotFound from '../NotFound';
 
 class Products extends Component {
     constructor(props) {
         super(props);
-
         this.limit = 2;
-        this.state = {
-            page: 1
-        };
 
         this.handleChangePage = this.handleChangePage.bind(this);
     }
 
+    loadProducts() {
+        this.props.getProducts(this.props.match.params.page, this.limit);
+    }
+
     componentDidMount() {
-        const query = new URLSearchParams(this.props.location.search);
-        this.props.getProducts(query.get('page'), this.limit);
+        this.loadProducts();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.match.params.page !== this.props.match.params.page) {
+            this.loadProducts();
+        }
     }
 
     handleChangePage(page) {
-        this.props.history.push(`/products?page=${page}`);
-        this.setState({ page });
-        this.props.getProducts(page, this.limit);
+        this.props.history.push(`/products/${page}`);
+    }
+
+    getPage() {
+        const page = Number(this.props.match.params.page);
+        if (!page || page <= 0 || page >= this.props.products.count / this.limit + 1) {
+            return null;
+        }
+        return page;
     }
 
     render() {
         const products = this.props.products;
+        const page = this.getPage();
+
+        if (!page) return <NotFound />;
         return (
             <div>
                 <div className='clearfix'>
@@ -41,7 +57,7 @@ class Products extends Component {
                 </div>
                 <div className='col-lg-20 pagination-block'>
                     <Pagination
-                        activePage={this.state.page}
+                        activePage={page}
                         itemsCountPerPage={this.limit}
                         totalItemsCount={products.count}
                         pageRangeDisplayed={4}
