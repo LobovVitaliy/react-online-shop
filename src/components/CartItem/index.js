@@ -24,7 +24,7 @@ class CartItem extends Component {
                 </div>
                 <div className='item-title'>
                     <h3>
-                        <Link to={`/products/${item._id}`}>{item.title}</Link>
+                        <Link to={`/product/${item._id}`}>{item.title}</Link>
                     </h3>
                 </div>
                 <div className='item-price'>
