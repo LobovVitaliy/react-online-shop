@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import CartItem from '../CartItem';
+import NotFound from '../NotFound';
 
 class Cart extends Component {
     componentDidMount() {
@@ -9,6 +10,7 @@ class Cart extends Component {
     }
 
     render() {
+        if (!this.props.isLoggedIn) return <NotFound />;
         return (
             <div className='col-lg-20'>
                 {this.props.items.map((item, i) => (
@@ -24,6 +26,7 @@ class Cart extends Component {
 }
 
 Cart.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
     items: PropTypes.array.isRequired,
     get: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired
