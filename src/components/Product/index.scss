@@ -49,13 +49,17 @@ $button-bg-active-color: #4ebf42;
         background: $button-bg-color;
         text-transform: capitalize;
         min-width: 100px;
-        width: 48%;
+        width: 100%;
         height: 40px;
         border-radius: 2px;
         border: none;
         outline: none;
         box-shadow: 0 3px 0 0 darken($button-bg-color, 10);
         padding: 0 15px;
+
+        &:not(:first-child) {
+            margin-left: 2%;
+        }
 
         &:hover {
             text-shadow: 0 1px 3px darken($button-bg-color, 30);

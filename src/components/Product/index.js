@@ -25,7 +25,7 @@ class Product extends Component {
     }
 
     render() {
-        const product = this.props.product;
+        const { isLoggedIn, product } = this.props;
 
         if (!product._id) return <NotFound />;
         return (
@@ -33,7 +33,11 @@ class Product extends Component {
                 <div className='product-img-btns'>
                     <img src={`/static/images/${product._id}`} />
                     <div className='buttons'>
-                        <button onClick={this.add}>Add to cart</button>
+                        {
+                            isLoggedIn
+                            ? <button onClick={this.add}>Add to cart</button>
+                            : null
+                        }
                         <button onClick={this.buy}>Buy</button>
                     </div>
                 </div>
@@ -55,6 +59,7 @@ class Product extends Component {
 }
 
 Product.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
     product: PropTypes.object.isRequired,
     getProductById: PropTypes.func.isRequired,
     add: PropTypes.func.isRequired
