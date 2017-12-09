@@ -21,7 +21,6 @@ export const login = user => dispatch => {
 };
 
 export const logout = () => {
-    cookie.remove('jwt');
     cookie.remove('jwt', { path: '/' });
     return { type: LOGOUT };
 };
