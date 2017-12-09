@@ -10,16 +10,18 @@ class Cart extends Component {
     }
 
     render() {
-        if (!this.props.isLoggedIn) return <NotFound />;
+        const { isLoggedIn, items } = this.props;
+
+        if (!isLoggedIn) return <NotFound />;
         return (
             <div className='col-lg-20'>
-                {this.props.items.map((item, i) => (
+                {items.length ? items.map((item, i) => (
                     <CartItem
                         item={item}
                         remove={this.props.remove}
                         key={i}
                     />
-                ))}
+                )) : <h3>The cart is empty</h3>}
             </div>
         );
     }
