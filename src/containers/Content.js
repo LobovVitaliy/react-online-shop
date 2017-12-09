@@ -13,7 +13,7 @@ class Content extends Component {
         return (
             <div className='row content'>
                 <Switch>
-                    <Redirect exact from='/' to='/products/1' />
+                    <Redirect exact from='/(products)?' to='/products/1' />
                     <Route exact path='/products/:page' component={Products} />
                     <Route exact path='/product/:id' component={Product} />
                     <Route exact path='/login' component={LoginForm} />
