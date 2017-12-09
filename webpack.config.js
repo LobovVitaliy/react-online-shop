@@ -3,11 +3,14 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        shop: [ './src/index.js', './src/index.scss' ],
+        admin: [ './src/admin.js', './src/admin.scss' ]
+    },
     output: {
         path: path.join(__dirname, '/public/build'),
         publicPath: '/public/',
-        filename: 'bundle.js'
+        filename: '[name].bundle.js'
     },
     resolve: {
         modules: ['src', 'node_modules'],
@@ -38,7 +41,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: 'styles.css',
+            filename: '[name].styles.css',
             allChunks: true
         })
     ],
