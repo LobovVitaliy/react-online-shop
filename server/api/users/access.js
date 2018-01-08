@@ -9,5 +9,11 @@ module.exports = {
     },
     admin: (req, res, next) => {
         passport.authenticate('admin-jwt', { session })(req, res, next);
+    },
+    adminPage: (req, res, next) => {
+        passport.authenticate('admin-jwt', {
+            session,
+            failureRedirect: '/'
+        })(req, res, next);
     }
 };

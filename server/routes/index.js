@@ -2,6 +2,7 @@
 
 const express = require('express');
 const settings = require('../config/settings');
+const access = require('../api/users/access');
 
 module.exports = app => {
     app.options('*', (req, res) => res.send(200));

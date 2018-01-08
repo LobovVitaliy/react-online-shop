@@ -2,7 +2,7 @@
 
 const router = require('express').Router();
 
-const access = require('../auth/access');
+const access = require('../users/access');
 const validate = require('./validate');
 const controller = require('./controller');
 
