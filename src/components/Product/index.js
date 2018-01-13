@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
 
-import NotFound from '../NotFound';
-
 class Product extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +11,11 @@ class Product extends Component {
     }
 
     componentDidMount() {
-        this.props.getProductById(this.props.match.params.id);
+        this.props.getById(this.props.match.params.id);
+    }
+
+    shouldComponentUpdate() {
+        return this.props.isFetching;
     }
 
     add() {
@@ -26,8 +28,6 @@ class Product extends Component {
 
     render() {
         const { isLoggedIn, product } = this.props;
-
-        if (!product._id) return <NotFound />;
         return (
             <div className='product'>
                 <div className='product-img-btns'>
@@ -60,8 +60,9 @@ class Product extends Component {
 
 Product.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     product: PropTypes.object.isRequired,
-    getProductById: PropTypes.func.isRequired,
+    getById: PropTypes.func.isRequired,
     add: PropTypes.func.isRequired
 };
 

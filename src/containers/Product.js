@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 
-import getProductById from '../redux/actions/product';
+import { getById } from '../redux/actions/products';
 import { add } from '../redux/actions/cart';
 import Product from '../components/Product';
 
 const mapStateToProps = state => ({
     isLoggedIn: state.auth,
-    product: state.product
+    isFetching: state.products.isFetching,
+    product: state.products.selected
 });
 
-export default connect(mapStateToProps, { getProductById, add })(Product);
+export default connect(mapStateToProps, { getById, add })(Product);
