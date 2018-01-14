@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 
+import AuthRoute from './AuthRoute';
+
 import Products from './Products';
 import Product from './Product';
 import LoginForm from './LoginForm';
@@ -18,7 +20,7 @@ class Content extends Component {
                     <Route exact path='/product/:id' component={Product} />
                     <Route exact path='/login' component={LoginForm} />
                     <Route exact path='/signup' component={SignUpForm} />
-                    <Route exact path='/cart' component={Cart} />
+                    <AuthRoute exact path='/cart' component={Cart} />
                     <Route component={NotFound} />
                 </Switch>
             </div>
