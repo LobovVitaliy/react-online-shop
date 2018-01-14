@@ -4,8 +4,8 @@ import { get, remove } from '../redux/actions/cart';
 import Cart from '../components/Cart';
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.auth,
-    items: state.cart
+    isFetching: state.cart.isFetching,
+    items: state.cart.data
 });
 
 export default connect(mapStateToProps, { get, remove })(Cart);
