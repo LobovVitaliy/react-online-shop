@@ -9,7 +9,14 @@ module.exports = app => {
 
     app.use('/static', express.static(settings.static));
     app.use('/api/v1', require('../api'));
-    app.get('*', (req, res) => res.sendFile('index.html', { root: settings.static }));
+
+    app.get('/admin*', access.adminPage, (req, res) => {
+        res.sendFile('admin.html', { root: settings.static });
+    });
+    app.get('*', (req, res) => {
+        res.sendFile('index.html', { root: settings.static });
+    });
+
     app.use('*', (req, res) => res.status(404).json({ error: 'Not Found' }));
 
     app.use((err, req, res, next) => {
