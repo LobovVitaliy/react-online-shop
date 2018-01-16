@@ -7,6 +7,7 @@ const AppError = require('../libs/errors');
 
 const ProductSchema = new Schema({
     _id: Schema.Types.ObjectId,
+    image: { type: String, required: true },
     title: { type: String, maxlength: 25, required: true },
     text:  { type: String, maxlength: 500, required: true },
     price: { type: Number, min: 0, required: true }
