@@ -34,9 +34,14 @@ module.exports = {
             })
             .catch(err => next(err));
     },
-    delete: (req, res, next) => {
-        User.findByIdAndRemove(req.params.id)
+    update: (req, res, next) => {
+        User.findByIdAndUpdate(req.params.id, req.body, { new: true })
             .then(user => res.json(user))
+            .catch(err => next(err));
+    },
+    delete: (req, res, next) => {
+        User.remove({ _id: { $in: req.body } })
+            .then(({ result }) => res.json(result))
             .catch(err => next(err));
     }
 };

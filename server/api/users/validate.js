@@ -26,5 +26,21 @@ module.exports = {
         Joi.validate(req.body, schema, (err, value) => {
             err ? next(AppError.badRequest(err.message)) : next();
         });
+    },
+    update: (req, res, next) => {
+        const schema = Joi.object().keys({
+            role: keys.role
+        });
+
+        Joi.validate(req.body, schema, (err, value) => {
+            err ? next(AppError.badRequest(err.message)) : next();
+        });
+    },
+    delete: (req, res, next) => {
+        const schema = Joi.array().items(Joi.string().required()).required();
+
+        Joi.validate(req.body, schema, (err, value) => {
+            err ? next(AppError.badRequest(err.message)) : next();
+        });
     }
 };
