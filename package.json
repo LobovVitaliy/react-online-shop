@@ -47,7 +47,7 @@
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "^1.1.5",
     "material-ui": "^0.19.4",
-    "node-sass": "^4.6.0",
+    "node-sass": "^4.7.2",
     "postcss": "^6.0.14",
     "postcss-loader": "^2.0.8",
     "precss": "^2.0.0",
