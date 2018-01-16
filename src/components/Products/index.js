@@ -5,6 +5,7 @@ import './index.scss';
 import Pagination from 'react-js-pagination';
 
 import Card from '../Card';
+import Loading from '../Loading';
 import NotFound from '../NotFound';
 
 class Products extends Component {
@@ -16,7 +17,7 @@ class Products extends Component {
     }
 
     loadProducts() {
-        this.props.getProducts(this.props.match.params.page, this.limit);
+        this.props.get(this.props.match.params.page, this.limit);
     }
 
     componentDidMount() {
@@ -35,23 +36,24 @@ class Products extends Component {
 
     getPage() {
         const page = Number(this.props.match.params.page);
-        if (!page || page <= 0 || page >= this.props.products.count / this.limit + 1) {
+        if (!page || page <= 0 || page >= this.props.count / this.limit + 1) {
             return null;
         }
         return page;
     }
 
     render() {
-        const products = this.props.products;
+        const { isFetching, products, count } = this.props;
         const page = this.getPage();
 
+        if (isFetching) return <Loading />;
         if (!page) return <NotFound />;
         return (
             <div>
                 <div className='clearfix'>
-                    {products.data.map((card, i) => (
+                    {products.map((product, i) => (
                         <div className='card-col' key={i}>
-                            <Card card={card} />
+                            <Card card={product} />
                         </div>
                     ))}
                 </div>
@@ -59,7 +61,7 @@ class Products extends Component {
                     <Pagination
                         activePage={page}
                         itemsCountPerPage={this.limit}
-                        totalItemsCount={products.count}
+                        totalItemsCount={count}
                         pageRangeDisplayed={4}
                         onChange={this.handleChangePage}
                     />
@@ -70,8 +72,10 @@ class Products extends Component {
 }
 
 Products.propTypes = {
-    products: PropTypes.object.isRequired,
-    getProducts: PropTypes.func.isRequired
+    isFetching: PropTypes.bool.isRequired,
+    products: PropTypes.array.isRequired,
+    count: PropTypes.number.isRequired,
+    get: PropTypes.func.isRequired
 };
 
 export default Products;

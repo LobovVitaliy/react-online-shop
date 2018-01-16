@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
 
-import getProducts from '../redux/actions/products';
+import { get } from '../redux/actions/products';
 import Products from '../components/Products';
 
-const mapStateToProps = state => ({ products: state.products });
+const mapStateToProps = state => ({
+    isFetching: state.products.isFetching,
+    products: state.products.data,
+    count: state.products.count
+});
 
-export default connect(mapStateToProps, { getProducts })(Products);
+export default connect(mapStateToProps, { get })(Products);
