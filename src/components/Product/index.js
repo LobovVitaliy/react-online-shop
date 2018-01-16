@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
 
+import Loading from '../Loading';
+import NotFound from '../NotFound';
+
 class Product extends Component {
     constructor(props) {
         super(props);
@@ -14,31 +17,36 @@ class Product extends Component {
         this.props.getById(this.props.match.params.id);
     }
 
-    shouldComponentUpdate() {
-        return this.props.isFetching;
-    }
-
     add() {
-        this.props.add(this.props.product._id);
+        this.props.add(this.props.product);
     }
 
     buy() {
         alert('Success! =)');
     }
 
+    renderAddButton() {
+        if (this.props.isLoggedIn) {
+            return <button onClick={this.add}>Add to cart</button>;
+        }
+    }
+
+    renderBuyButton() {
+        return <button onClick={this.buy}>Buy</button>;
+    }
+
     render() {
-        const { isLoggedIn, product } = this.props;
+        const { isFetching, product } = this.props;
+
+        if (isFetching) return <Loading />;
+        if (!product._id) return <NotFound />;
         return (
             <div className='product'>
                 <div className='product-img-btns'>
                     <img src={`/static/images/${product._id}`} />
                     <div className='buttons'>
-                        {
-                            isLoggedIn
-                            ? <button onClick={this.add}>Add to cart</button>
-                            : null
-                        }
-                        <button onClick={this.buy}>Buy</button>
+                        {this.renderAddButton()}
+                        {this.renderBuyButton()}
                     </div>
                 </div>
                 <div className='product-info'>
