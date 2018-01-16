@@ -43,7 +43,7 @@ class Product extends Component {
         return (
             <div className='product'>
                 <div className='product-img-btns'>
-                    <img src={`/static/images/${product._id}`} />
+                    <img src={`/static/images/${product.image}`} />
                     <div className='buttons'>
                         {this.renderAddButton()}
                         {this.renderBuyButton()}

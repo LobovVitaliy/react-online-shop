@@ -20,7 +20,7 @@ class CartItem extends Component {
         return (
             <div className='item'>
                 <div className='item-image'>
-                    <img src={`/static/images/${item._id}`} />
+                    <img src={`/static/images/${item.image}`} />
                 </div>
                 <div className='item-title'>
                     <h3>
