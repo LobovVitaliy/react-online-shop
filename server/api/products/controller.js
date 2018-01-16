@@ -1,6 +1,7 @@
 'use strict';
 
 const ObjectId = require('mongoose').Types.ObjectId;
+const Promise = require('bluebird');
 
 const Product = require('../../models/product');
 const Files = require('../../libs/files');
@@ -17,6 +18,14 @@ module.exports = {
                 Product.count().then(count => res.json({ count, products }));
             })
             .catch(err => next(err));
+
+        // v2
+        // Promise.all([
+        //     Product.find().skip((page - 1) * limit).limit(limit),
+        //     Product.count()
+        // ])
+        // .then(([ products, count ]) => res.json({ products, count }))
+        // .catch(err => next(err));
     },
     getById: (req, res, next) => {
         Product.findById(req.params.id)
@@ -26,26 +35,83 @@ module.exports = {
     create: (req, res, next) => {
         const { title, text, price } = req.body;
         const _id = ObjectId();
+        const image = `${_id}-${new Date().getTime()}`;
 
-        Product.create({ _id, title, text, price })
+        Files.create(req.files.image, image)
+            .then(() => Product.create({ _id, image, title, text, price }))
             .then(product => res.json(product))
-            .then(() => Files.create(req.files.image, _id.toString()))
             .catch(err => next(err));
+
+        // v2
+        // Promise.all([
+        //     Product.create({ _id, image, title, text, price }),
+        //     Files.create(req.files.image, image)
+        // ])
+        // .then(([product]) => res.json(product))
+        // .catch(err => next(err));
     },
     update: (req, res, next) => {
         const _id = req.params.id;
+        const image = req.files ? req.files.image : null;
+        let data = req.body; // const data = { ...req.body };
 
-        Product.findByIdAndUpdate(_id, req.body)
+        const promise = Product.findById(_id);
+
+        if (image) {
+            const name = `${_id}-${new Date().getTime()}`;
+            data = { ...data, image: name }; // data.image = name;
+            promise.then(product => Promise.all([
+                Files.delete(product.image),
+                Files.create(image, name)
+            ]))
+        }
+        promise.then(product => {
+                product.set(data);
+                return product.save();
+            })
             .then(product => res.json(product))
-            .then(() => Files.create(req.files.image, _id))
             .catch(err => next(err));
+
+        // v2
+        // const name = `${_id}-${new Date().getTime()}`;
+        // const data = image ? { ...req.body, image: name } : req.body;
+        // Product.findByIdAndUpdate(_id, { $set: data })
+        //     .then(product => {
+        //         if (image) {
+        //             Promise.all([
+        //                 Files.delete(product.image),
+        //                 Files.create(image, name)
+        //             ])
+        //         }
+        //         return { ...product.toObject(), ...data };
+        //     })
+        //     .then(product => res.json(product))
+        //     .catch(err => next(err));
     },
     delete: (req, res, next) => {
-        const _id = req.params.id;
-        
-        Product.findByIdAndRemove(_id)
-            .then(product => res.json(product))
-            .then(() => Files.delete(_id))
+        const ids = req.body;
+
+        Product.find({ _id: { $in: ids }}, 'image')
+            .then(items => items.map(item => item.image))
+            .then(images => Promise.map(images, Files.delete))
+            .then(() => Product.remove({ _id: { $in: ids } }))
+            .then(({ result }) => res.json(result))
             .catch(err => next(err));
+
+        // v2
+        // Product.find({ _id: { $in: ids }}, 'image')
+        //     .then(items => Promise.all([...items.map(item => Files.delete(item.image))]))
+        //     .then(() => Product.remove({ _id: { $in: ids } }))
+        //     .then(({ result }) => res.json(result))
+        //     .catch(err => next(err));
+
+        // v3
+        // Product.find({ _id: { $in: ids }}, 'image')
+        //     .then(items => Promise.all([
+        //         Product.remove({ _id: { $in: ids } }),
+        //         ...items.map(item => Files.delete(item.image))
+        //     ]))
+        //     .then(([{ result }]) => res.json(result))
+        //     .catch(err => next(err));
     }
 };

@@ -10,8 +10,8 @@ router.get('/', controller.getAll);
 router.get('/:id', controller.getById);
 
 // for admin
-router.post('/', access.admin, validate, controller.create);
-router.put('/:id', access.admin, validate, controller.update);
-router.delete('/:id', access.admin, controller.delete);
+router.post('/', access.admin, validate.create, controller.create);
+router.put('/:id', access.admin, validate.update, controller.update);
+router.delete('/', access.admin, validate.delete, controller.delete);
 
 module.exports = router;
