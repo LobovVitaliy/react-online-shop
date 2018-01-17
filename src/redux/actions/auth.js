@@ -5,18 +5,20 @@ import { push } from 'react-router-redux';
 import { geterror } from './helper';
 import { notify } from './notification';
 
+const url = '/api/v1/users';
+
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 
 export const signup = user => dispatch => {
-    axios.post('/api/v1/users/signup', user)
+    axios.post(`${url}/signup`, user)
         .then(() => dispatch(push('/login')))
         .then(() => dispatch(notify('Registration successful!')))
         .catch(err => dispatch(notify(geterror(err))))
 };
 
 export const login = user => dispatch => {
-    axios.post('/api/v1/users/login', user)
+    axios.post(`${url}/login`, user)
         .then(() => dispatch({ type: LOGIN }))
         .then(() => dispatch(push('/cart')))
         .then(() => dispatch(notify('Login successful!')))
