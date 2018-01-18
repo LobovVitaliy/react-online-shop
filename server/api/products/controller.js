@@ -8,10 +8,14 @@ const Files = require('../../libs/files');
 
 module.exports = {
     getAll: (req, res, next) => {
+        const field = req.query.sort;
+        const order = req.query.order;
+        const sort = field ? { [field]: order || 'asc' } : {};
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
 
         Product.find()
+            .sort(sort)
             .skip((page - 1) * limit)
             .limit(limit)
             .then(products => {
@@ -21,7 +25,7 @@ module.exports = {
 
         // v2
         // Promise.all([
-        //     Product.find().skip((page - 1) * limit).limit(limit),
+        //     Product.find().sort(sort).skip((page - 1) * limit).limit(limit),
         //     Product.count()
         // ])
         // .then(([ products, count ]) => res.json({ products, count }))

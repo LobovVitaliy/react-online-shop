@@ -6,10 +6,14 @@ const settings = require('../../config/settings');
 
 module.exports = {
     get: (req, res, next) => {
+        const field = req.query.sort;
+        const order = req.query.order;
+        const sort = field ? { [field]: order || 'asc' } : {};
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
 
         User.find()
+            .sort(sort)
             .skip((page - 1) * limit)
             .limit(limit)
             .then(users => {
