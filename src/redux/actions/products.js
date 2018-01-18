@@ -23,7 +23,7 @@ export const getById = id => dispatch => {
         .catch(err => dispatch(notify(geterror(err))));
 };
 
-export const get = (page, limit) => dispatch => {
+export const get = (page, limit, sort, order) => dispatch => {
     const success = data => ({
         type: GET_PRODUCTS,
         count: data.count,
@@ -31,7 +31,7 @@ export const get = (page, limit) => dispatch => {
     });
 
     dispatch(request());
-    axios.get(url, { params: { page, limit } })
+    axios.get(url, { params: { page, limit, sort, order } })
         .then(res => dispatch(success(res.data)))
         .catch(err => dispatch(notify(geterror(err))));
 };

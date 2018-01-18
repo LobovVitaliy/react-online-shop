@@ -13,7 +13,7 @@ export const DELETE_USERS = 'DELETE_USERS';
 
 const request = () => ({ type: REQUEST_USERS });
 
-export const get = (page, limit) => dispatch => {
+export const get = (page, limit, sort, order) => dispatch => {
     const success = data => ({
         type: GET_USERS,
         count: data.count,
@@ -21,7 +21,7 @@ export const get = (page, limit) => dispatch => {
     });
 
     dispatch(request());
-    axios.get(url, { params: { page, limit } })
+    axios.get(url, { params: { page, limit, sort, order } })
         .then(res => dispatch(success(res.data)))
         .catch(err => dispatch(notify(geterror(err))));
 };
