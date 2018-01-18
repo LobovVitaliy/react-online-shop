@@ -6,18 +6,20 @@ const settings = require('../../config/settings');
 
 module.exports = {
     get: (req, res, next) => {
-        const field = req.query.sort;
-        const order = req.query.order;
+        const { search: searchText, sort: field, order } = req.query;
+        const search = searchText
+            ? { $text: { $search: `"${searchText.split(' ').join('" "')}"` } }
+            : {};
         const sort = field ? { [field]: order || 'asc' } : {};
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
 
-        User.find()
+        User.find(search)
             .sort(sort)
             .skip((page - 1) * limit)
             .limit(limit)
             .then(users => {
-                User.count().then(count => res.json({ count, users }));
+                User.count(search).then(count => res.json({ count, users }));
             })
             .catch(err => next(err));
     },

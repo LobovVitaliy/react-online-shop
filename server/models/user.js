@@ -20,6 +20,8 @@ const UserSchema = new Schema({
     }
 });
 
+UserSchema.index({ mail: 'text', role: 'text' });
+
 function verify(doc, next) {
     !doc ? next(AppError.notFound('User Not Found')) : next();
 }
