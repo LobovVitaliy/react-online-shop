@@ -11,7 +11,7 @@ import NotFound from '../NotFound';
 class Products extends Component {
     constructor(props) {
         super(props);
-        this.limit = 2;
+        this.limit = 5;
 
         this.handleChangePage = this.handleChangePage.bind(this);
     }
