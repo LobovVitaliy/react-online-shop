@@ -17,7 +17,10 @@ class Products extends Component {
     }
 
     loadProducts() {
-        this.props.get(this.props.match.params.page, this.limit);
+        this.props.get({
+            page: this.props.match.params.page,
+            limit: this.limit
+        });
     }
 
     componentDidMount() {
