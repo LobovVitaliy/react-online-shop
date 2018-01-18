@@ -13,6 +13,8 @@ const ProductSchema = new Schema({
     price: { type: Number, min: 0, required: true }
 }, { versionKey: false });
 
+ProductSchema.index({ title: 'text', text: 'text' });
+
 function verify(doc, next) {
     !doc ? next(AppError.notFound('Product Not Found')) : next();
 }
