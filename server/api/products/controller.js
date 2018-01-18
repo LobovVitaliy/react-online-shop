@@ -4,6 +4,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const Promise = require('bluebird');
 
 const Product = require('../../models/product');
+const User = require('../../models/user');
 const Files = require('../../libs/files');
 
 module.exports = {
@@ -28,7 +29,7 @@ module.exports = {
         //     Product.find().sort(sort).skip((page - 1) * limit).limit(limit),
         //     Product.count()
         // ])
-        // .then(([ products, count ]) => res.json({ products, count }))
+        // .then(([products, count]) => res.json({ products, count }))
         // .catch(err => next(err));
     },
     getById: (req, res, next) => {
@@ -67,7 +68,7 @@ module.exports = {
             promise.then(product => Promise.all([
                 Files.delete(product.image),
                 Files.create(image, name)
-            ]))
+            ]));
         }
         promise.then(product => {
                 product.set(data);
@@ -85,7 +86,7 @@ module.exports = {
         //             Promise.all([
         //                 Files.delete(product.image),
         //                 Files.create(image, name)
-        //             ])
+        //             ]);
         //         }
         //         return { ...product.toObject(), ...data };
         //     })
@@ -95,27 +96,36 @@ module.exports = {
     delete: (req, res, next) => {
         const ids = req.body;
 
-        Product.find({ _id: { $in: ids }}, 'image')
-            .then(items => items.map(item => item.image))
-            .then(images => Promise.map(images, Files.delete))
-            .then(() => Product.remove({ _id: { $in: ids } }))
-            .then(({ result }) => res.json(result))
-            .catch(err => next(err));
+        Promise.all([
+            Product.find({ _id: { $in: ids }}, 'image'),
+            User.update({}, { $pull: { cart: { $in: ids } } }, { multi: true } )
+        ])
+        .then(([items]) => items.map(item => item.image))
+        .then(images => Promise.map(images, Files.delete))
+        .then(() => Product.remove({ _id: { $in: ids } }))
+        .then(({ result }) => res.json(result))
+        .catch(err => next(err));
 
         // v2
-        // Product.find({ _id: { $in: ids }}, 'image')
-        //     .then(items => Promise.all([...items.map(item => Files.delete(item.image))]))
-        //     .then(() => Product.remove({ _id: { $in: ids } }))
-        //     .then(({ result }) => res.json(result))
-        //     .catch(err => next(err));
+        // Promise.all([
+        //     Product.find({ _id: { $in: ids }}, 'image'),
+        //     User.update({}, { $pull: { cart: { $in: ids } } }, { multi: true } )
+        // ])
+        // .then(([items]) => Promise.all([...items.map(item => Files.delete(item.image))]))
+        // .then(() => Product.remove({ _id: { $in: ids } }))
+        // .then(({ result }) => res.json(result))
+        // .catch(err => next(err));
 
         // v3
-        // Product.find({ _id: { $in: ids }}, 'image')
-        //     .then(items => Promise.all([
-        //         Product.remove({ _id: { $in: ids } }),
-        //         ...items.map(item => Files.delete(item.image))
-        //     ]))
-        //     .then(([{ result }]) => res.json(result))
-        //     .catch(err => next(err));
+        // Promise.all([
+        //     Product.find({ _id: { $in: ids }}, 'image'),
+        //     User.update({}, { $pull: { cart: { $in: ids } } }, { multi: true } )
+        // ])
+        // .then(([items]) => Promise.all([
+        //     Product.remove({ _id: { $in: ids } }),
+        //     ...items.map(item => Files.delete(item.image))
+        // ]))
+        // .then(([{ result }]) => res.json(result))
+        // .catch(err => next(err));
     }
 };
