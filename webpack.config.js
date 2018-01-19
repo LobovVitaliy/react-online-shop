@@ -4,8 +4,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        shop: [ './src/index.js', './src/index.scss' ],
-        admin: [ './src/admin.js', './src/admin.scss' ]
+        shop: ['./src/index.js', './src/index.scss'],
+        admin: ['./src/admin.js', './src/admin.scss']
     },
     output: {
         path: path.join(__dirname, '/public/build'),
@@ -34,6 +34,13 @@ module.exports = {
                 })
             },
             {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'postcss-loader']
+                })
+            },
+            {
                 test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png|\.jpe?g|\.gif$/,
                 loader: 'file-loader'
             }
@@ -43,11 +50,20 @@ module.exports = {
         new ExtractTextPlugin({
             filename: '[name].styles.css',
             allChunks: true
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true
         })
     ],
     devServer: {
         stats: 'errors-only',
-        contentBase: path.join(__dirname, '/public'),
-        historyApiFallback: true
+        contentBase: path.join(__dirname, '/public/development'),
+        publicPath: '/build/',
+        historyApiFallback: true,
+        proxy: [{
+            context: ['/api/v1', '/static'],
+            target: 'http://localhost:9000',
+            secure: false
+        }]
     }
 };
