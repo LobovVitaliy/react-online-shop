@@ -1,0 +1,39 @@
+ul {
+    margin: 0 !important;
+}
+
+.ReactModal__Overlay {
+    top: 64px !important;
+    background-color: rgba(0,0,0,.5) !important;
+}
+
+.s-alert-box {
+    z-index: 9999 !important;
+}
+
+.ReactModal__Content:focus {
+    outline: 0 !important;
+}
+
+input:focus,
+button:focus {
+    outline: 0 !important;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+textarea {
+    resize: vertical !important;
+}
+
+.react-bs-table-tool-bar,
+.react-bs-table-pagination {
+    width: 100%;
+    padding: 0 15px;
+}
+
+[class^=col] {
+    padding: 0 !important;
+}
