@@ -13,7 +13,7 @@
 ![admin-product-table](https://user-images.githubusercontent.com/14150731/35187211-dcd966fa-fe28-11e7-9752-eedec8893174.png)
 #### new product
 ![admin-product-table-insert](https://user-images.githubusercontent.com/14150731/35187212-dcf45320-fe28-11e7-87f2-791afb67ca45.png)
-#### new user
-![admin-user-table-insert](https://user-images.githubusercontent.com/14150731/35187213-dd0f37bc-fe28-11e7-8faf-22192dd2df61.png)
 #### edit product
 ![admin-product-table-update](https://user-images.githubusercontent.com/14150731/35187214-dd2a1e7e-fe28-11e7-96b3-b7db7dde02c0.png)
+#### new user
+![admin-user-table-insert](https://user-images.githubusercontent.com/14150731/35187213-dd0f37bc-fe28-11e7-8faf-22192dd2df61.png)
