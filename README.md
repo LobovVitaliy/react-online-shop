@@ -11,6 +11,8 @@
 ### Admin
 #### product table
 ![admin-product-table](https://user-images.githubusercontent.com/14150731/35187211-dcd966fa-fe28-11e7-9752-eedec8893174.png)
+#### sort products (by title)
+![sort](https://user-images.githubusercontent.com/14150731/35187806-b427b720-fe32-11e7-81b4-0aed5762b411.png)
 #### new product
 ![admin-product-table-insert](https://user-images.githubusercontent.com/14150731/35187212-dcf45320-fe28-11e7-87f2-791afb67ca45.png)
 #### edit product
