@@ -5,6 +5,11 @@ import './index.scss';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
+    componentDidMount() {
+        const { isLoggedIn, getCart } = this.props;
+        if (isLoggedIn) getCart();
+    }
+
     render() {
         const { isLoggedIn, count } = this.props;
         return (
@@ -29,7 +34,8 @@ class Header extends Component {
 Header.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     count: PropTypes.number.isRequired,
-    logout: PropTypes.func.isRequired
+    logout: PropTypes.func.isRequired,
+    getCart: PropTypes.func.isRequired
 };
 
 export default Header;
